@@ -1,0 +1,65 @@
+/* Intro cinematográfica: forno > café > logo > site */
+.intro-on{overflow:hidden}
+.intro-on .hero img.logo{visibility:hidden}
+#intro{--u:min(1vw,1.7vh);position:fixed;inset:0;z-index:1000;background:#1a0b03;overflow:hidden;transition:background-color 1.6s ease,opacity .6s ease;color:#f3e2c4;font-family:Nunito,system-ui,sans-serif}
+#intro.out{opacity:0;pointer-events:none}
+#intro.s4{background-color:transparent}
+#intro *{box-sizing:border-box}
+.world{position:absolute;inset:0 auto 0 0;width:200vw;will-change:transform;transition:opacity 1.6s}
+.go .world{animation:pan 4s 4s cubic-bezier(.45,0,.25,1) forwards}
+@keyframes pan{to{transform:translate3d(-100vw,0,0)}}
+.wall{position:absolute;left:0;top:0;width:100vw;height:100%;background:repeating-linear-gradient(0deg,rgba(0,0,0,.4) 0 2px,transparent 2px 36px),repeating-linear-gradient(90deg,rgba(0,0,0,.28) 0 2px,transparent 2px 84px),linear-gradient(#5a2a12,#24100a)}
+.spill{position:absolute;left:0;top:0;width:100vw;height:100%;background:radial-gradient(ellipse 45% 55% at 50% 48%,rgba(255,170,70,.55),transparent 70%);opacity:0}
+.go .spill{animation:fade 2s .4s forwards}
+@keyframes fade{to{opacity:1}}
+.room{position:absolute;left:100vw;top:0;width:100vw;height:100%;background:radial-gradient(ellipse 60% 50% at 50% 30%,rgba(255,200,130,.28),transparent 70%),linear-gradient(#3a2216,#1d100a)}
+.table{position:absolute;left:100vw;top:62vh;width:100vw;height:38vh;background:repeating-linear-gradient(90deg,rgba(0,0,0,.35) 0 2px,transparent 2px 22vw),repeating-linear-gradient(88deg,rgba(255,220,170,.06) 0 3px,rgba(0,0,0,.08) 3px 9px),linear-gradient(#a8693a,#6d3a1c 60%,#4a2410);box-shadow:inset 0 3px 0 #d9a272,0 -14px 40px rgba(0,0,0,.4)}
+.oven{position:absolute;left:50vw;top:46%;width:calc(64*var(--u));height:calc(46*var(--u));transform:translate(-50%,-50%);perspective:900px}
+.arch{position:absolute;inset:0;border-radius:50% 50% 5% 5%/64% 64% 5% 5%;background:linear-gradient(#3b1b0c,#1f0d05);box-shadow:inset 0 0 0 calc(2*var(--u)) #6b3a1c,0 20px 60px #000a;padding:calc(4*var(--u))}
+.mouth{position:relative;width:100%;height:100%;border-radius:50% 50% 3% 3%/62% 62% 3% 3%;overflow:hidden;background:radial-gradient(ellipse at 50% 70%,#ffd27a,#ff8a22 40%,#8b2d00 85%)}
+.dark{position:absolute;inset:0;background:#120500;animation:none}
+.go .dark{animation:lit 1.8s .3s forwards}
+@keyframes lit{to{opacity:0}}
+.door{position:absolute;left:calc(4*var(--u));right:calc(4*var(--u));top:calc(4*var(--u));bottom:calc(4*var(--u));border-radius:50% 50% 3% 3%/62% 62% 3% 3%;background:linear-gradient(135deg,#4a4a4a,#1b1b1b);border:3px solid #777;transform-origin:50% 100%;backface-visibility:visible}
+.door i{position:absolute;left:25%;right:25%;top:42%;height:5%;border-radius:99px;background:#bbb}
+.go .door{animation:door 1.4s .3s cubic-bezier(.2,.7,.2,1) forwards}
+@keyframes door{to{transform:rotateX(-84deg)}}
+.bread{position:absolute;left:50vw;top:50%;width:calc(22*var(--u));opacity:0;will-change:transform;filter:drop-shadow(0 6px 10px rgba(0,0,0,.45))}
+.bread svg,.cup svg{display:block;width:100%;height:auto}
+.go .bread{animation:fly 8s forwards}
+@keyframes fly{0%{opacity:0;transform:translate(-50%,calc(-50% + 2vh)) scale(.6);animation-timing-function:ease-out}
+17%{opacity:1;transform:translate(-50%,calc(-50% + 2vh)) scale(.7);animation-timing-function:cubic-bezier(.3,.7,.3,1)}
+50%{opacity:1;transform:translate(-50%,calc(-50% - 14vh)) scale(1.15);animation-timing-function:ease-in-out}
+63%{transform:translate(calc(-50% + 36vw),calc(-50% - 30vh)) scale(1.2) rotate(-8deg);animation-timing-function:ease-in-out}
+82%{transform:translate(calc(-50% + 84vw),calc(-50% - 18vh)) scale(1.08) rotate(6deg);animation-timing-function:cubic-bezier(.4,0,.3,1)}
+100%{opacity:1;transform:translate(calc(-50% + 108vw),calc(-50% + 21vh)) scale(.9) rotate(0)}}
+.cup{position:absolute;left:132vw;top:63vh;width:calc(20*var(--u));transform:translate(-50%,-88%);filter:drop-shadow(0 8px 8px rgba(0,0,0,.45))}
+canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;transition:opacity 1.2s}
+.vig{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 50%,transparent 45%,rgba(0,0,0,.65));transition:opacity 1.6s}
+.dim{position:absolute;inset:0;background:#120600;opacity:0;transition:opacity 2s;pointer-events:none}
+.s3 .dim{opacity:.6}
+.logo{position:fixed;left:50%;top:50%;width:min(62vw,340px);aspect-ratio:1;border-radius:50%;border:6px solid #f3e2c4;object-fit:cover;opacity:0;filter:blur(18px) brightness(2.4);transform:translate(-50%,-50%) scale(.88);box-shadow:0 0 90px 20px rgba(255,200,120,.75);transition:opacity 2.4s ease,filter 2.4s ease,transform 1.6s ease,box-shadow 1.6s}
+.s3 .logo{opacity:1;filter:none;transform:translate(-50%,-50%) scale(1)}
+.s4 .logo{transform:translate(-50%,-50%) scale(1.1);box-shadow:0 10px 30px #461604}
+.s4 .world,.s4 .dim,.s4 .vig,.s4 canvas{opacity:0}
+#intro .logo.fly{transition:transform 1.8s cubic-bezier(.65,0,.25,1),box-shadow 1s;box-shadow:0 10px 30px #461604}
+#skip{position:fixed;top:calc(14px + env(safe-area-inset-top,0px));right:14px;z-index:1001;border:2px solid #f3e2c4;background:rgba(70,22,4,.75);color:#f3e2c4;font:800 15px Nunito,sans-serif;padding:10px 18px;border-radius:999px;cursor:pointer;backdrop-filter:blur(6px)}
+#skip:hover{background:#c28554;color:#461604}#skip:focus-visible{outline:3px solid #c28554;outline-offset:2px}
+/* v2: acabamento realista */
+.wall,.room{position:absolute;top:0;height:100%;width:100vw}.wall{left:0}.room{left:100vw;filter:blur(4px) brightness(.7)}
+.oven{aspect-ratio:640/460;height:auto;perspective:1000px;filter:drop-shadow(0 18px 40px rgba(0,0,0,.7))}.ovsvg{position:absolute;inset:0;width:100%;height:100%}
+.fire ellipse{transform-box:fill-box;transform-origin:50% 100%;animation:flick .5s infinite alternate ease-in-out}.fire ellipse:nth-child(2){animation-duration:.37s}.fire ellipse:nth-child(3){animation-duration:.61s}
+@keyframes flick{from{opacity:.55;transform:scale(.9,.8)}to{opacity:1;transform:scale(1.08,1.15)}}
+.dark{opacity:1}.go .dark{animation:lit 1.8s .3s forwards}
+.door{left:21.1%;top:22.8%;right:auto;bottom:auto;width:57.8%;height:72.8%;border-radius:50% 50% 2% 2%/55% 55% 2% 2%;background:linear-gradient(135deg,#5c5751,#262320 45%,#3b3732 70%,#151311);border:0;box-shadow:inset 0 0 0 4px #77716a,inset 0 0 40px #000,0 10px 30px #000a}
+.door:after{content:"";position:absolute;inset:7% 9%;border:3px dotted #9a948a;border-radius:inherit;opacity:.55}
+.door i{background:linear-gradient(#e6e0d6,#7d776e);box-shadow:0 3px 6px #000a}
+.go .spill{animation:fade 2s .4s forwards,flk .35s 2.4s infinite alternate ease-in-out}
+@keyframes flk{from{opacity:.82}to{opacity:1}}
+.table{overflow:hidden}.table svg{width:100%;height:100%;display:block}
+.bread{filter:drop-shadow(0 10px 8px rgba(0,0,0,.5))}
+.cup{width:calc(21*var(--u));filter:none}
+.cshadow,.bshadow{position:absolute;border-radius:50%;background:radial-gradient(ellipse,rgba(0,0,0,.65),transparent 70%);transform:translate(-50%,-50%);pointer-events:none}
+.cshadow{left:132vw;top:63.3vh;width:calc(30*var(--u));height:calc(5*var(--u))}
+.bshadow{left:158vw;top:75vh;width:calc(26*var(--u));height:calc(5*var(--u));opacity:0}
+.go .bshadow{animation:shad 8s forwards}@keyframes shad{0%,78%{opacity:0;transform:translate(-50%,-50%) scale(.6)}100%{opacity:.9;transform:translate(-50%,-50%) scale(1)}}
