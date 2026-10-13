@@ -1,0 +1,118 @@
+{
+ "kg": 19,
+ "paes": [
+  [
+   "Pão Francês",
+   "unidade",
+   0,
+   "w"
+  ],
+  [
+   "Pão de Queijo",
+   "unidade",
+   3.5
+  ],
+  [
+   "Pão Doce",
+   "unidade",
+   3
+  ],
+  [
+   "Baguete",
+   "unidade",
+   6
+  ]
+ ],
+ "frios": [
+  [
+   "Presunto",
+   5
+  ],
+  [
+   "Mussarela",
+   6
+  ],
+  [
+   "Mortadela",
+   3.5
+  ],
+  [
+   "Salame",
+   9
+  ],
+  [
+   "Peito de Peru",
+   8
+  ],
+  [
+   "Queijo Prato",
+   6.5
+  ]
+ ],
+ "salgados": [
+  [
+   "Coxinha",
+   "unidade",
+   7
+  ],
+  [
+   "Pastel Assado",
+   "unidade",
+   7.5
+  ],
+  [
+   "Enroladinho",
+   "unidade",
+   6
+  ],
+  [
+   "Esfiha",
+   "unidade",
+   6
+  ]
+ ],
+ "doces": [
+  [
+   "Sonho de Creme",
+   "unidade",
+   6
+  ],
+  [
+   "Bolo de Cenoura (fatia)",
+   "fatia",
+   7
+  ],
+  [
+   "Bolo de Fubá (fatia)",
+   "fatia",
+   6
+  ],
+  [
+   "Rocambole (fatia)",
+   "fatia",
+   8
+  ]
+ ],
+ "bebidas": [
+  [
+   "Café",
+   "copo",
+   4
+  ],
+  [
+   "Suco Natural",
+   "copo",
+   8
+  ],
+  [
+   "Refrigerante Lata",
+   "lata",
+   6
+  ],
+  [
+   "Água",
+   "garrafa",
+   3
+  ]
+ ]
+}

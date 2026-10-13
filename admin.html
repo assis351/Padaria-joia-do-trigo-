@@ -1,0 +1,90 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Admin – Padaria Joia do Trigo</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Jost:wght@400;500;600&display=swap" rel="stylesheet"><style>
+:root{--dark:#461604;--brown:#8b5228;--caramel:#c28554;--cream:#f3e2c4;--paper:#fbf4e6}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--dark);font:16px/1.5 system-ui,Segoe UI,Roboto,sans-serif}
+header{background:var(--dark);color:var(--cream);padding:14px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+header h1{margin:0;font-size:20px}nav button{margin-left:6px}
+main{max-width:980px;margin:0 auto;padding:20px}h2{margin:26px 0 10px;font-size:20px;border-bottom:3px solid var(--caramel);display:inline-block}
+button,.b{border:0;border-radius:999px;padding:9px 16px;font:700 14px system-ui,sans-serif;background:var(--caramel);color:var(--dark);cursor:pointer}
+button:hover{background:var(--cream)}button.on{background:var(--cream)}button.dk{background:var(--dark);color:var(--cream)}button.dk:hover{background:var(--brown)}button.rm{background:#f3c9c0;color:#7a1c10;padding:6px 12px}
+input,select,textarea{font:inherit;padding:9px 11px;border:2px solid var(--caramel);border-radius:10px;background:#fff;color:var(--dark);min-width:0}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}.card{background:#fff;border:2px solid var(--cream);border-radius:16px;padding:16px}
+.card small{color:var(--brown);display:block}.card strong{font-size:28px}.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:8px 0}
+.row input{flex:1 1 130px}table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden}td,th{padding:8px 10px;border-bottom:1px solid var(--cream);text-align:left}th{background:var(--cream);font-size:13px}
+td input{width:100%}.lock{color:var(--brown);font-size:13px}.bars{display:flex;align-items:flex-end;gap:8px;height:160px;background:#fff;border:2px solid var(--cream);border-radius:16px;padding:14px}
+.bars div{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;font-size:12px}.bars i{display:block;width:70%;background:var(--caramel);border-radius:6px 6px 0 0;min-height:2px}
+#lock{position:fixed;inset:0;background:var(--dark);display:grid;place-items:center;z-index:9;padding:20px}#lock>div{background:var(--paper);border-radius:20px;padding:26px;max-width:340px;width:100%;text-align:center}
+#lock input{width:100%;margin:12px 0;text-align:center;font-size:20px}.msg{color:#7a1c10;min-height:1.4em;font-weight:700}#toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--dark);color:var(--cream);padding:10px 20px;border-radius:99px;opacity:0;transition:opacity .3s;pointer-events:none}
+.hide{display:none}.note{background:#fff;border-left:5px solid var(--caramel);padding:10px 14px;border-radius:8px;font-size:14px;margin:10px 0}
+body{font-family:Jost,system-ui,sans-serif}h1,h2{font-family:"Cormorant Garamond",Georgia,serif;font-weight:700}h1{font-size:26px}h2{font-size:28px}
+header{border-bottom:2px solid var(--caramel)}button,.b{border-radius:2px;text-transform:uppercase;letter-spacing:.08em;font-size:12px}.card{border-radius:4px;box-shadow:0 18px 40px -26px rgba(70,22,4,.5)}.card strong{font-family:"Cormorant Garamond",serif;font-size:38px}
+table,.bars,.note,#lock>div{border-radius:4px}input,select,textarea{border-radius:3px}
+</style></head><body>
+<div id="lock"><div><h2 id="lt" style="border:0">Área do administrador</h2><div id="ls"></div><input id="pin" type="password" inputmode="numeric" autocomplete="off" placeholder="Senha"><div class="msg" id="lm"></div><button class="dk" id="lb">Entrar</button></div></div>
+<header><h1>🌾 Admin – Padaria Joia do Trigo</h1><nav><button id="t1" class="on">Renda</button><button id="t2">Cardápio</button></nav></header>
+<main>
+<section id="p1">
+<h2>Renda</h2><div class="row"><button id="sync">Atualizar vendas</button></div><div class="note">Cada pedido enviado pelo site é registrado aqui automaticamente (neste aparelho; para todos os aparelhos, ligue o Apps Script, veja o README).</div><div class="cards"><div class="card"><small>Hoje</small><strong id="rd">–</strong></div><div class="card"><small>Esta semana (seg–dom)</small><strong id="rs">–</strong></div><div class="card"><small>Este mês</small><strong id="rm">–</strong></div></div>
+<h2>Últimos 7 dias</h2><div class="bars" id="bars"></div>
+<h2>Vendas</h2><table><thead><tr><th>Data</th><th>Descrição</th><th>Valor</th><th></th></tr></thead><tbody id="vl"></tbody></table>
+<div class="row"><button id="csv">Exportar vendas (CSV)</button><button id="bk">Backup (JSON)</button><label class="b">Importar backup<input id="im" type="file" accept=".json" hidden></label></div>
+</section>
+<section id="p2" class="hide">
+<div class="note"><b>Como publicar mudanças:</b> edite aqui, clique em <b>Baixar cardapio.json</b> e substitua o arquivo <code>cardapio.json</code> no repositório do GitHub. O site dos clientes passa a usar o novo cardápio. Pão francês e frios são fixos (só dá para mudar o preço).</div>
+<div id="menu"></div>
+<div class="row"><button class="dk" id="dl">Baixar cardapio.json</button><button id="rs2">Restaurar padrão</button></div>
+</section>
+<p class="note">Vendas e rascunho do cardápio ficam salvos neste navegador. Faça backup de vez em quando. A senha só impede curiosos: não é segurança real.</p>
+</main><div id="toast"></div>
+<script>
+const K={m:"pjt_cardapio",v:"pjt_vendas",p:"pjt_pin"},$=i=>document.getElementById(i);
+const API_URL=""; /* mesma URL do Apps Script usada em js/main.js */
+const DEF={ "kg": 19, "paes": [  [   "Pão Francês",   "unidade",   0,   "w"  ],  [   "Pão de Queijo",   "unidade",   3.5  ],  [   "Pão Doce",   "unidade",   3  ],  [   "Baguete",   "unidade",   6  ] ], "frios": [  [   "Presunto",   5  ],  [   "Mussarela",   6  ],  [   "Mortadela",   3.5  ],  [   "Salame",   9  ],  [   "Peito de Peru",   8  ],  [   "Queijo Prato",   6.5  ] ], "salgados": [  [   "Coxinha",   "unidade",   7  ],  [   "Pastel Assado",   "unidade",   7.5  ],  [   "Enroladinho",   "unidade",   6  ],  [   "Esfiha",   "unidade",   6  ] ], "doces": [  [   "Sonho de Creme",   "unidade",   6  ],  [   "Bolo de Cenoura (fatia)",   "fatia",   7  ],  [   "Bolo de Fubá (fatia)",   "fatia",   6  ],  [   "Rocambole (fatia)",   "fatia",   8  ] ], "bebidas": [  [   "Café",   "copo",   4  ],  [   "Suco Natural",   "copo",   8  ],  [   "Refrigerante Lata",   "lata",   6  ],  [   "Água",   "garrafa",   3  ] ]};
+const ld=(k,d)=>{try{const v=JSON.parse(localStorage.getItem(k));return v==null?d:v}catch(e){return d}};
+const sv=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v));return true}catch(e){toast("Não foi possível salvar neste navegador");return false}};
+const R=v=>"R$ "+(+v||0).toFixed(2).replace(".",","),pad=n=>String(n).padStart(2,"0");
+const pv=s=>{s=String(s).replace(/[^\d,.]/g,"");if(s.includes(","))s=s.replace(/\./g,"").replace(",",".");return parseFloat(s)||0};
+const dk=d=>d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());
+const br=s=>s.split("-").reverse().join("/");
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function toast(t){const e=$("toast");e.textContent=t;e.style.opacity=1;setTimeout(()=>e.style.opacity=0,1800)}
+let M=ld(K.m,null),V=ld(K.v,[]);
+/* Senha fixa */
+function lock(){const L=$("lock");$("lt").textContent="Digite a senha";$("lb").textContent="Entrar";
+ const go=()=>{if($("pin").value.trim()==="3524"){L.remove();start()}else{$("lm").textContent="Senha incorreta.";$("pin").value=""}};
+ $("lb").onclick=go;$("pin").onkeydown=e=>{if(e.key==="Enter")go()};$("pin").focus()}
+async function sync(){V=ld(K.v,[]);if(API_URL)try{const a=await (await fetch(API_URL)).json(),m=new Map(V.map(x=>[x.id,x]));a.forEach(x=>m.set(+x.id,{id:+x.id,d:String(x.d).slice(0,10),v:+x.v,s:x.s||""}));V=[...m.values()];sv(K.v,V)}catch(e){toast("Não consegui sincronizar")}renderRenda()}
+async function start(){if(!M){try{const r=await fetch("cardapio.json",{cache:"no-store"});if(r.ok)M=await r.json()}catch(e){}}
+ if(!M)M=JSON.parse(JSON.stringify(DEF));await sync();renderAll()}
+/* Abas */
+[["t1","p1"],["t2","p2"]].forEach(([t,p])=>$(t).onclick=()=>{["t1","t2"].forEach(x=>$(x).classList.toggle("on",x==t));["p1","p2"].forEach(x=>$(x).classList.toggle("hide",x!=p))});
+/* Renda */
+function renderRenda(){const n=new Date(),hoje=dk(n),dow=(n.getDay()+6)%7,ws=dk(new Date(n.getFullYear(),n.getMonth(),n.getDate()-dow)),mes=hoje.slice(0,7);
+ let d=0,s=0,m=0;V.forEach(x=>{if(x.d===hoje)d+=x.v;if(x.d>=ws&&x.d<=hoje)s+=x.v;if(x.d.slice(0,7)===mes)m+=x.v});
+ $("rd").textContent=R(d);$("rs").textContent=R(s);$("rm").textContent=R(m);
+ const days=[];for(let i=6;i>=0;i--){const x=new Date(n.getFullYear(),n.getMonth(),n.getDate()-i),k=dk(x);days.push([["dom","seg","ter","qua","qui","sex","sáb"][x.getDay()],V.filter(v=>v.d===k).reduce((a,v)=>a+v.v,0)])}
+ const mx=Math.max(1,...days.map(x=>x[1]));$("bars").innerHTML=days.map(x=>`<div><span>${x[1]?R(x[1]).replace("R$ ",""):""}</span><i style="height:${x[1]/mx*100*.78}%"></i><span>${x[0]}</span></div>`).join("");
+ $("vl").innerHTML=[...V].sort((a,b)=>b.d.localeCompare(a.d)||b.id-a.id).slice(0,40).map(x=>`<tr><td>${br(x.d)}</td><td>${esc(x.s||"")}</td><td>${R(x.v)}</td><td><button class="rm" data-del="${x.id}">Excluir</button></td></tr>`).join("")||'<tr><td colspan="4">Nenhuma venda para mostrar.</td></tr>'}
+$("sync").onclick=sync;
+$("vl").onclick=e=>{const b=e.target.closest("[data-del]");if(!b||!confirm("Excluir esta venda?"))return;V=V.filter(x=>x.id!=b.dataset.del);sv(K.v,V);renderRenda()};
+const dlf=(n,t,type)=>{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([t],{type}));a.download=n;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500)};
+$("csv").onclick=()=>dlf("vendas.csv","data;valor;descricao\n"+[...V].sort((a,b)=>a.d.localeCompare(b.d)).map(x=>`${x.d};${x.v.toFixed(2).replace(".",",")};"${(x.s||"").replace(/"/g,'""')}"`).join("\n"),"text/csv");
+$("bk").onclick=()=>dlf("backup-padaria.json",JSON.stringify({vendas:V,cardapio:M}),"application/json");
+$("im").onchange=async e=>{try{const j=JSON.parse(await e.target.files[0].text());if(Array.isArray(j.vendas)){V=j.vendas;sv(K.v,V)}if(j.cardapio){M=j.cardapio;sv(K.m,M)}renderAll();toast("Backup importado")}catch(x){toast("Arquivo inválido")}};
+/* Cardápio */
+const CATS=[["paes","Pães",1],["frios","Frios (preço por 100 g)",0],["salgados","Salgados",1],["doces","Doces e bolos",1],["bebidas","Bebidas",1]];
+function renderMenu(){$("menu").innerHTML=CATS.map(([k,t,ed])=>{const rows=M[k].map((it,i)=>{
+  if(k==="frios")return `<tr><td>${esc(it[0])} <span class="lock">🔒 fixo</span></td><td></td><td><input data-k="${k}" data-i="${i}" data-f="1" value="${(+it[1]).toFixed(2).replace(".",",")}"></td><td></td></tr>`;
+  if(k==="paes"&&i===0)return `<tr><td>Pão Francês <span class="lock">🔒 fixo, vendido por peso</span></td><td>por kg</td><td><input data-kg="1" value="${(+M.kg).toFixed(2).replace(".",",")}"></td><td></td></tr>`;
+  return `<tr><td>${esc(it[0])}</td><td>${esc(it[1])}</td><td><input data-k="${k}" data-i="${i}" data-f="2" value="${(+it[2]).toFixed(2).replace(".",",")}"></td><td><button class="rm" data-rm="${k}:${i}">Remover</button></td></tr>`}).join("");
+  const add=ed?`<div class="row"><input id="n-${k}" placeholder="Novo item"><input id="u-${k}" placeholder="Unidade (unidade, fatia…)"><input id="p-${k}" inputmode="decimal" placeholder="Preço R$"><button class="dk" data-add="${k}">Incluir</button></div>`:"";
+  return `<h2>${t}</h2><table><thead><tr><th>Item</th><th>Unidade</th><th>Preço (R$)</th><th></th></tr></thead><tbody>${rows}</tbody></table>${add}`}).join("")}
+$("menu").onchange=e=>{const t=e.target;if(t.dataset.kg){M.kg=pv(t.value);}else if(t.dataset.k){M[t.dataset.k][t.dataset.i][+t.dataset.f]=pv(t.value)}else return;sv(K.m,M);renderMenu();toast("Preço salvo")};
+$("menu").onclick=e=>{const a=e.target.closest("[data-add]"),r=e.target.closest("[data-rm]");
+ if(a){const k=a.dataset.add,n=$("n-"+k).value.trim(),p=pv($("p-"+k).value);if(!n||p<=0){toast("Informe nome e preço");return}M[k].push([n,$("u-"+k).value.trim()||"unidade",p]);sv(K.m,M);renderMenu();toast("Item incluído")}
+ if(r){const[k,i]=r.dataset.rm.split(":");if(confirm("Remover "+M[k][i][0]+"?")){M[k].splice(+i,1);sv(K.m,M);renderMenu()}}};
+$("dl").onclick=()=>dlf("cardapio.json",JSON.stringify(M,null,1),"application/json");
+$("rs2").onclick=()=>{if(confirm("Voltar ao cardápio padrão?")){M=JSON.parse(JSON.stringify(DEF));sv(K.m,M);renderMenu()}};
+function renderAll(){renderRenda();renderMenu()}
+lock();
+</script></body></html>
